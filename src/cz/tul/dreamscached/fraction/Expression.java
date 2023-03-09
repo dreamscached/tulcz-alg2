@@ -17,7 +17,7 @@ public class Expression {
     public static Expression parse(String string) {
         if (string == null) throw new IllegalArgumentException("vstupní řetězey nemůže být null");
 
-        Matcher matcher = Pattern.compile("(-?\\d\\s*/\\s*-?\\d)\\s*([+\\-*/])\\s*(-?\\d\\s*/\\s*-?\\d)")
+        Matcher matcher = Pattern.compile("(-?\\d+(?:\\s*/-?\\d+)?)\\s*([+\\-*/])\\s*(-?\\d+(?:\\s*/-?\\d+)?)")
                 .matcher(string);
         if (!matcher.find()) throw new IllegalArgumentException("nespravný výraz");
 

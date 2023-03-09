@@ -19,7 +19,7 @@ public class Fraction {
         return new Fraction(parseFloats(string));
     }
 
-    private Fraction(long... longs) {
+    private Fraction(long[] longs) {
         if (longs[1] == 0) throw new IllegalArgumentException("jmenovatel nemůže být nulou");
         this.numerator = longs[0];
         this.denominator = longs[1];
@@ -32,14 +32,14 @@ public class Fraction {
     private static long[] parseFloats(String string) {
         if (string == null) throw new IllegalArgumentException("vstupní řetězey nemůže být null");
 
-        Matcher matcher = Pattern.compile("(\\d+)\\D+(\\d+)").matcher(string);
+        Matcher matcher = Pattern.compile("(-?\\d+)\\D+(-?\\d+)|(-?\\d+)").matcher(string);
         if (!matcher.find()) throw new IllegalArgumentException("nespravný výraz");
 
         long[] out = new long[2];
 
         try {
-            out[0] = Long.parseLong(matcher.group(1));
-            out[1] = Long.parseLong(matcher.group(2));
+            out[0] = matcher.group(3) == null ? Long.parseLong(matcher.group(1)) : Long.parseLong(matcher.group(3));
+            out[1] = matcher.group(3) == null ? Long.parseLong(matcher.group(2)) : 1;
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("zadané jsou špatná čísla");
         }

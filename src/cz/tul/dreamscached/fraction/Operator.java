@@ -5,9 +5,9 @@ import java.util.function.BiFunction;
 
 public enum Operator {
     ADD('+', FractionTools::add),
-    SUB('-', FractionTools::sub),
-    MUL('*', FractionTools::mul),
-    DIV('/', FractionTools::div);
+    SUB('-', FractionTools::subtract),
+    MUL('*', FractionTools::multiply),
+    DIV('/', FractionTools::divide);
 
     private final char sym;
     private final BiFunction<Fraction, Fraction, Fraction> fun;
@@ -18,7 +18,8 @@ public enum Operator {
     }
 
     public static Operator bySymbol(char c) {
-        return Arrays.stream(values()).filter(it -> it.sym == c).findFirst().orElse(null);
+        return Arrays.stream(values()).filter(it -> it.sym == c)
+                .findFirst().orElse(null);
     }
 
     public Fraction eval(Fraction a, Fraction b) {
